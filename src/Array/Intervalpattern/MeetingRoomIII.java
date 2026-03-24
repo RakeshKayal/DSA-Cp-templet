@@ -16,6 +16,11 @@ public class MeetingRoomIII {
         int ans= mostBooked(n,meetings);
         System.out.println(ans);
 
+        //optimal - use heap
+
+        int i = mostBooked_(n, meetings);
+        System.out.println("optimal approch : "+i);
+
 
     }
     public  static int mostBooked(int n, int[][] meetings) {
@@ -73,4 +78,6 @@ public class MeetingRoomIII {
 
         return res;
     }
+
+    public  static  int mostBooked_(int n, int [][] meeting){return 0;};
 }
