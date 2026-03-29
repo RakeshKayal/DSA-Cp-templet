@@ -1,4 +1,4 @@
-package CP;
+package CP.implementation;
 
 import java.util.Scanner;
 
