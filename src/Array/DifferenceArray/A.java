@@ -14,6 +14,8 @@ public class A {
 
         // difference Array Technique
 
+        // i am doing it in place you can do it in diff[] =Array.fill(0) the perform all range  then just
+        // add it with nums[i];
 
        int n=a.length;
 //        int [] diff= new int[n];

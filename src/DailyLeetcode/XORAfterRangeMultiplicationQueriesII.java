@@ -1,7 +1,6 @@
 package DailyLeetcode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class XORAfterRangeMultiplicationQueriesII {
 
@@ -22,7 +21,7 @@ public class XORAfterRangeMultiplicationQueriesII {
         int n= nums.length;
         int t=(int)Math.sqrt(n);
 
-        List<List<int[]>> group= new ArrayList<>();
+        Map<Integer,List<int[]>> m= new HashMap<>();
 
         for(int it[] :queries) {
 
@@ -33,7 +32,8 @@ public class XORAfterRangeMultiplicationQueriesII {
 
             if (k<t){
 
-                group.get(k).add(new int[]{l,r,v});
+                m.put(k, new ArrayList<>());
+                m.get(k).add(new int[]{l,r,v});
             }
             else {
                 for (int i = l; i <r ; i+=k) {
@@ -42,7 +42,59 @@ public class XORAfterRangeMultiplicationQueriesII {
             }
         }
 
-        return 0;
+        for (Map.Entry<Integer, List<int[]>> integerEntry : m.entrySet()) {
 
+
+            int k= integerEntry.getKey();
+            List<int[]> value = integerEntry.getValue();
+            long diff[]= new long[n];
+            Arrays.fill(diff,1);
+
+           for( int it [] :value){
+               int s= it[0];
+               int e=it[1];
+               int v=it[2];
+
+               diff[s]=(diff[s]*v)%mod;
+               int step=(e-s)/k;
+               int next=s+(step+1)*k;
+
+               if (next<n){
+                   diff[next]=(diff[next]*power(v,mod-2))%mod ;
+               }
+           }
+
+            for (int i = 1; i < diff.length; i++) {
+                diff[i]=(diff[i]*diff[i-k])%mod;
+            }
+
+            for (int i = 0; i < n; i++) {
+                nums[i]=(int) (nums[i]*diff[i])%mod;
+            }
+
+        }
+
+        int xor=0;
+        for (int i = 0; i < n; i++) {
+            xor^=nums[i];
+
+        }
+
+
+        return xor;
+
+    }
+     static  long power(long a, long b) {
+        long result = 1;
+        a = a % mod;
+
+        while (b > 0) {
+            if ((b & 1) == 1) {
+                result = (result * a) % mod;
+            }
+            a = (a * a) % mod;
+            b >>= 1;
+        }
+        return result;
     }
 }
