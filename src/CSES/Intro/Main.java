@@ -36,8 +36,77 @@ public class Main {
 
         //--------- :Fourth :--------
 
+//        int n=Integer.parseInt(br.readLine());
+//        StringTokenizer st= new StringTokenizer(br.readLine());
+//        long a[]= new long[n];
+//        for (int i = 0; i < n; i++) {
+//            a[i]=Integer.parseInt(st.nextToken());
+//
+//        }
+//        long l = minMovess(a);
+//        out.println(l);
+//        out.flush();
+
+        //--------- :fifth :--------
 
 
+        int n= Integer.parseInt(br.readLine());
+        if (n==1){
+            out.println(n);
+        }
+
+        else if (n<=3){
+            out.println("NO SOLUTION");
+        }
+        else{
+            StringBuilder st= new StringBuilder();
+            makePermutation(n,st);
+            out.println(st.toString());
+
+        }
+        out.flush();
+
+
+    }
+
+    private static void makePermutation(int n, StringBuilder st) {
+
+        List<Integer> odd=new ArrayList<>();
+        List<Integer> even= new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+
+            if (i%2!=0){
+                odd.add(i);
+            }else {
+                even.add(i);
+            }
+        }
+
+        for (int i = 0; i < even.size(); i++) {
+            st.append(even.get(i));
+            st.append(" ");
+        }
+        for (int i = 0; i < odd.size(); i++) {
+            st.append(odd.get(i));
+            st.append(" ");
+        }
+
+
+
+
+    }
+
+    private static long minMovess(long[] a) {
+
+        long c=0;
+        for (int i = 1; i <a.length ; i++) {
+            if (a[i]<a[i-1]){
+                long m=a[i-1]-a[i];
+                a[i]=a[i]+m;
+                c+=m;
+            }
+        }
+        return  c;
     }
 
     private static void C(String s) {
